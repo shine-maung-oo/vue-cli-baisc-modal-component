@@ -1,26 +1,40 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="showModal">
+    <Modal :header="header" :content="content" :theme="theme" @close="showModal=false">
+      <button @click="showModal2=true">Close</button>
+    </Modal>
+    
+  </div>
+  <button @click="showModal=true">Open Modal</button>
+  <div v-if="showModal2">
+    <Modal :theme2="theme2" @close="showModal2=false">
+      <span>Are you sure want to close?</span> <br>
+      <button @close="showModal2=false,showModal=false">Yes</button> &nbsp;
+      <button @click="showModal=true">cancel</button>
+    </Modal>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Modal from './components/Modal.vue'
 export default {
-  name: 'App',
+  data(){
+    return {
+      header: "Login Success",
+      content: "Welcome naoki-kun....",
+      theme: "success",
+      theme2: "delete",
+      showModal: false,
+      showModal2: false
+    }
+  },
   components: {
-    HelloWorld
+    Modal
   }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
